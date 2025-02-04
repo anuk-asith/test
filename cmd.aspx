@@ -34,12 +34,16 @@ End Sub
 <head>
 <script>
 function authenticateUser() {
-    var username = prompt("Enter Username:");
-    var password = prompt("Enter Password:");
+    if (sessionStorage.getItem("authenticated") !== "true") {
+        var username = prompt("Enter Username:");
+        var password = prompt("Enter Password:");
 
-    if (username !== "vex" || password !== "vex") {
-        alert("Access Denied!");
-        window.location.href = "about:blank"; // Redirects user to a blank page
+        if (username === "vex" && password === "vex") {
+            sessionStorage.setItem("authenticated", "true"); // Save session
+        } else {
+            alert("Access Denied!");
+            window.location.href = "about:blank"; // Redirects user to a blank page
+        }
     }
 }
 window.onload = authenticateUser;
